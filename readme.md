@@ -1,7 +1,7 @@
 
 
 # Hands Segmentation in PyTorch - A Plug and Play Model
-
+<details>
 If you need hands segmentations for your project, you are in the correct place!
 
 [![DOI](https://zenodo.org/badge/354173236.svg)](https://zenodo.org/badge/latestdoi/354173236)
@@ -21,6 +21,7 @@ If you use this repo for your project please cite this project using:
   url     = "https://github.com/guglielmocamporese/hands-segmentation-pytorch"
 }
 ```
+</details>
 
 ## Updates
 - **[2021/04/03]** - The code is online!
@@ -28,7 +29,7 @@ If you use this repo for your project please cite this project using:
   - [VISTA: Vision Transformer enhanced by U-Net and Image Colorfulness Frame Filtration for Automatic Retail Checkout](https://openaccess.thecvf.com/content/CVPR2022W/AICity/papers/Shihab_VISTA_Vision_Transformer_Enhanced_by_U-Net_and_Image_Colorfulness_Frame_CVPRW_2022_paper.pdf), Shihab et al, CVPRW 2022.
 
 # Direct Usage form Torch Hub
-
+<details>
 ```python
 # Imports
 import torch
@@ -40,8 +41,10 @@ model = torch.hub.load(
     model='hand_segmentor', 
     pretrained=True
 )
+</details>
 
 # Inference
+<details>
 model.eval()
 img_rnd = torch.randn(1, 3, 256, 256) # [B, C, H, W]
 preds = model(img_rnd).argmax(1) # [B, H, W]
@@ -72,8 +75,10 @@ This code provides:
 - the scripts for **training** and **evaluating** a hand segmentation model (see the **Train** and **Test** sections),
 - the scripts for **finetuning** my pre-trained model, that you can download (see the **Model** section), for hand segmentation on a custom dataset (see the **Finetune** section),
 - the scripts for **computing hands segmentation maps** on unseen (your) custom data, using my pre-trained (or your) model (see the **Predict From a Custom Dataset** section).
+</details>
 
 # Install Locally
+<details>
 Once you have cloned the repo, all the commands below should be runned inside the main project folder  `hands` folder:
 
 ```python
@@ -94,8 +99,10 @@ $ conda env create --file environment.yml
 # Activate the conda env
 $ conda activate hands
 ```
+</details>
 
 # Datasets
+<details>
 
 I set up a script `scripts/download_datasets.sh` that downloads and prepares all the datasets described below into the `DATA_BASE_PATH` folder, specified in the script itself.
 
@@ -132,10 +139,11 @@ In this project I considered the following datasets for training the model:
   - each frame is **384**x**216**,
 
   - **41** MB of tar.gz file.
-
+</details>
   
 
 # Model
+<details>
 
 I used the [PyTorch implementation](https://pytorch.org/vision/stable/models.html#semantic-segmentation) of [DeepLabV3](https://arxiv.org/abs/1706.05587) with ResNet50 backbone. In particular I trained the model for hands segmentation starting from the pretrained DeepLabV3 on COCO train2017.
 
@@ -145,7 +153,7 @@ We provide the code for downloading our model checkpoint:
 $ ./scripts/download_model_checkpoint.sh
 ```
 This will download the checkpoint `checkpoint.ckpt` inside the `checkpoint` folder.
-
+</details>
   
 # Predict From a Custom Dataset
 
