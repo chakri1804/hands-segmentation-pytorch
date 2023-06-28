@@ -3,3 +3,4 @@ __pycache__
 data
 checkpoint
 lightning_logs
+*.mp4
