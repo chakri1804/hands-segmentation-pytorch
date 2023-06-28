@@ -2,6 +2,7 @@
 
 # Hands Segmentation in PyTorch - A Plug and Play Model
 <details>
+
 If you need hands segmentations for your project, you are in the correct place!
 
 [![DOI](https://zenodo.org/badge/354173236.svg)](https://zenodo.org/badge/latestdoi/354173236)
@@ -21,6 +22,7 @@ If you use this repo for your project please cite this project using:
   url     = "https://github.com/guglielmocamporese/hands-segmentation-pytorch"
 }
 ```
+
 </details>
 
 ## Updates
@@ -29,7 +31,9 @@ If you use this repo for your project please cite this project using:
   - [VISTA: Vision Transformer enhanced by U-Net and Image Colorfulness Frame Filtration for Automatic Retail Checkout](https://openaccess.thecvf.com/content/CVPR2022W/AICity/papers/Shihab_VISTA_Vision_Transformer_Enhanced_by_U-Net_and_Image_Colorfulness_Frame_CVPRW_2022_paper.pdf), Shihab et al, CVPRW 2022.
 
 # Direct Usage form Torch Hub
+
 <details>
+
 ```python
 # Imports
 import torch
@@ -41,10 +45,7 @@ model = torch.hub.load(
     model='hand_segmentor', 
     pretrained=True
 )
-</details>
-
 # Inference
-<details>
 model.eval()
 img_rnd = torch.randn(1, 3, 256, 256) # [B, C, H, W]
 preds = model(img_rnd).argmax(1) # [B, H, W]
@@ -79,6 +80,7 @@ This code provides:
 
 # Install Locally
 <details>
+
 Once you have cloned the repo, all the commands below should be runned inside the main project folder  `hands` folder:
 
 ```python
@@ -99,6 +101,7 @@ $ conda env create --file environment.yml
 # Activate the conda env
 $ conda activate hands
 ```
+
 </details>
 
 # Datasets
