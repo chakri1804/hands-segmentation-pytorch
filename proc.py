@@ -13,9 +13,11 @@ def get_args():
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--inPath', type=str, default=None, 
-                        help='Input the path to the directory containing the images and predicted masks')
+                        help='Input the path to the directory containing the images')
     parser.add_argument('--outPath', type=str, default=None, 
                         help='Enter the output directory where the shaded pixel outputs are saved frame wise')
+    parser.add_argument('--inClsFile', type=str, default=None,
+                        help='Enter the filename with action class predictions')
     parser.add_argument('--outVidName', type=str, default='output.mp4',
                         help='Enter the name of the video to be rendered from the shaded images')
     args = parser.parse_args()
@@ -48,7 +50,17 @@ def crawl_dir(path):
     imgPthLst = [os.path.join(path, i) for i in pathsList if i.split('.')[-1] == 'jpg']
     return imgPthLst, mskPthLst
 
+def overlay_action(inpath, infile):
+    print('-----------overlaying action on preshaded images-----------')
+    act_preds = np.genfromtxt(infile, dtype='str')
+    for imgfile, action in tqdm(zip(natsorted(os.listdir(inpath)), act_preds), total=len(act_preds)):
+        img = cv2.imread(os.path.join(inpath, imgfile))
+        cv2.putText(img, action, (10,50), 
+                    cv2.FONT_HERSHEY_SIMPLEX, 1, (209, 80, 0, 255), 3)
+        cv2.imwrite(os.path.join(inpath, imgfile), img)
+
 def overlay_masks(inpath, outpath):
+    print('-----------overlaying masks on images-----------')
     # Crawl the path to get the list of relative images and masks path 
     imgPthLst, mskPthLst = crawl_dir(inpath)
     # Loop over the images and masks pair and output them in the outDir
@@ -76,6 +88,7 @@ if __name__ == '__main__':
     args = get_args()
     inPath = args.inPath
     outPath = args.outPath
+    inClsFile = args.inClsFile
     outVidName = args.outVidName
 
     # create the outPath if it doesn't exist
@@ -84,11 +97,13 @@ if __name__ == '__main__':
 
     # Overlay the masks and save the outputs to a directory
     overlay_masks(inPath, outPath)
-    # choose codec according to format needed
+    overlay_action(outPath, inClsFile)
+
     fourcc = cv2.VideoWriter_fourcc(*'mp4v') 
     video = cv2.VideoWriter(outVidName, fourcc, 24, (1920, 1080))
     # crawl the overlay dir and create a list of relative paths
     overlayPaths = [os.path.join(outPath, i) for i in natsorted(os.listdir(outPath))]
+    print('-----------Creating Video-----------')
     for i in tqdm(overlayPaths, total=len(overlayPaths)):
         img = cv2.imread(i)
         video.write(img)

@@ -1,6 +1,10 @@
-*ipynb*
 __pycache__
 data
 checkpoint
 lightning_logs
 *.mp4
+cls_model
+kitch
+fajita
+*.txt
+shaded*

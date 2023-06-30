@@ -31,8 +31,8 @@ def extractImages(pathIn, pathOut):
 
 if __name__=="__main__":
     a = argparse.ArgumentParser()
-    a.add_argument("--pathIn", help="path to video")
-    a.add_argument("--pathOut", help="path to images")
+    a.add_argument("--inPath", help="path to video")
+    a.add_argument("--outPath", help="path to images")
     args = a.parse_args()
     print(args)
-    extractImages(args.pathIn, args.pathOut)
+    extractImages(args.inPath, args.outPath)
