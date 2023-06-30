@@ -2,9 +2,15 @@ __pycache__
 data
 checkpoint
 lightning_logs
+.ipynb_checkpoints
+model
 *.mp4
 cls_model
 kitch
 fajita
 *.txt
 shaded*
+test
+train
+valid
+testg
